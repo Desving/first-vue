@@ -1,25 +1,30 @@
 <template>
     <div class="articles-list">
-        <div v-for="article in this.arArticles" :key="article.id" class="item">
-            <div class="item__img">
-                <img v-bind:src="article.scrPrewPicture" alt="">
+        <button v-on:click="shuffle">перемешать</button>
+        <transition-group name="list-complete" tag="div">
+            <div v-for="article in this.arArticles" :key="article.id" class="item">
+                <div class="item__img">
+                    <img v-bind:src="article.scrPrewPicture" alt="">
+                </div>
+                <div class="item__description">
+                    <h2 class="item__description_name">{{ article.articleName }}</h2>
+                    <p  class="item__description_txt">{{ article.articlePewText}}</p>
+                </div>
+                <div class="item__btn">
+                    <button>Lets me</button>
+                </div>
             </div>
-            <div class="item__description">
-                <h2 class="item__description_name">{{ article.articleName }}</h2>
-                <p  class="item__description_txt">{{ article.articlePewText}}</p>
-            </div>
-            <div class="item__btn">
-                <button>Lets me</button>
-            </div>
-        </div>
+        </transition-group>
     </div>
 </template>
 
 <script>
-    import img from '~/assets/142.jpg/'
+    import img from '~/assets/142.jpg/';
+    var _ = require('lodash');
     export default {
         data: function () {
             return {
+                //массив статей
                 arArticles: [
                     {
                         id: 0,
@@ -39,25 +44,122 @@
                         articleDetailButton: 'ss',
                         scrPrewPicture: img
                     },
+                    {
+                        id: 2,
+                        articleName: 'third Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 3,
+                        articleName: 'fours Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 4,
+                        articleName: 'fives Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 5,
+                        articleName: 'sixs Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 6,
+                        articleName: 'sevens Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 7,
+                        articleName: 'eithins Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 8,
+                        articleName: 'nines Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 9,
+                        articleName: 'Second Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 10,
+                        articleName: 'tens Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
                 ],
+            }
+        },
+        methods: {
+            //функция перемешивания
+            shuffle: function(){
+                this.arArticles = _.shuffle(this.arArticles);
             }
         }
     }
 </script>
 
 <style lang="less">
+    .list-complete-enter, .list-complete-leave-to
+        /* .list-complete-leave-active до версии 2.1.8 */ {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    /*список статей*/
     .articles-list {
         display: flex;
         flex-direction: column;
         padding: 20px 20px;
         width: 80%;
         margin: auto;
+        /*элемент списка*/
         & .item {
             display: flex;
             flex-direction: row;
             padding: 10px 10px 10px 0;
             /*background: red;*/
             margin-bottom: 10px;
+            /*Анимация списка*/
+            transition: all 1s;
+            /*контейнер для картинки статьи*/
             &__img {
                 width: 150px;
                 margin-right: 50px;
@@ -66,6 +168,7 @@
                    height: auto;
                }
            }
+            /*весь провью текст статьи*/
             &__description {
                 /*background: blue;*/
                 display: flex;
@@ -89,6 +192,7 @@
 
                 }
             }
+            /*кнопка для перехода на детальную*/
             &__btn {
               width: 120px;
                 & button{
