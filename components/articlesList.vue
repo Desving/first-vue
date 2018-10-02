@@ -109,7 +109,7 @@
                     },
                     {
                         id: 9,
-                        articleName: 'Second Projext',
+                        articleName: 'tens Projext',
                         articlePewText: 'Lorem ipsum dolor sit amet, ' +
                         'consectetur adipisicing elit. Ea nobis non perferendis ' +
                         'possimus quia. Consectetur et iste labore libero quae.',
@@ -118,7 +118,7 @@
                     },
                     {
                         id: 10,
-                        articleName: 'tens Projext',
+                        articleName: '11s Projext',
                         articlePewText: 'Lorem ipsum dolor sit amet, ' +
                         'consectetur adipisicing elit. Ea nobis non perferendis ' +
                         'possimus quia. Consectetur et iste labore libero quae.',
