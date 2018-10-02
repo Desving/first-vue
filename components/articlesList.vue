@@ -1,8 +1,12 @@
 <template>
-    <div class="articles-list">
-        <button v-on:click="shuffle">перемешать</button>
+    <div class="articles-list" id="#start">
+        <div class="sort-btn">
+            <button v-on:click="shuffle" class="btn">перемешать</button>
+            <button v-on:click="sortName" class="btn">Сортировать по названию</button>
+            <button v-on:click="sortRating" class="btn">Сортировать по рейтингу</button>
+        </div>
         <transition-group name="list-complete" tag="div">
-            <div v-for="article in this.arArticles" :key="article.id" class="item">
+            <div v-for="article in paginatedData" :key="article.id" class="item">
                 <div class="item__img">
                     <img v-bind:src="article.scrPrewPicture" alt="">
                 </div>
@@ -15,6 +19,14 @@
                 </div>
             </div>
         </transition-group>
+        <div class="pag-btn">
+            <button v-bind:disabled="disabledPrev" v-bind:class="{ btn_red: disabledPrev }" @click="prevPage" class="btn prev">
+                Туды
+            </button>
+            <button v-bind:disabled="disabledNext" v-bind:class="{ btn_red: disabledNext }" @click="nextPage" class="btn next">
+                Сюды
+            </button>
+        </div>
     </div>
 </template>
 
@@ -24,6 +36,10 @@
     export default {
         data: function () {
             return {
+                //начальная страница
+                pageNumber: 0,
+                maxPostInPage: 10,
+                orderSortName: '',
                 //массив статей
                 arArticles: [
                     {
@@ -125,6 +141,61 @@
                         articleDetailButton: 'ss',
                         scrPrewPicture: img
                     },
+                    {
+                        id: 11,
+                        articleName: 'sixs Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 12,
+                        articleName: 'sevens Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 13,
+                        articleName: 'eithins Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 14,
+                        articleName: 'nines Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 15,
+                        articleName: 'tens Projext',
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
+                    {
+                        id: 16,
+                        articleName: '11s Projext',
+                        articleRaiting: 1,
+                        articlePewText: 'Lorem ipsum dolor sit amet, ' +
+                        'consectetur adipisicing elit. Ea nobis non perferendis ' +
+                        'possimus quia. Consectetur et iste labore libero quae.',
+                        articleDetailButton: 'ss',
+                        scrPrewPicture: img
+                    },
                 ],
             }
         },
@@ -132,6 +203,72 @@
             //функция перемешивания
             shuffle: function(){
                 this.arArticles = _.shuffle(this.arArticles);
+            },
+            sortName: function(){
+                this.arArticles.sort(function (a, b) {
+                    if (a.articleName > b.articleName) {
+                        return 1;
+                    }
+                    if (a.articleName < b.articleName) {
+                        return -1;
+                    }
+                    // a должно быть равным b
+                    return 0;
+                });
+            },
+            sortRating: function(){
+                this.arArticles.sort(function (a, b) {
+                    if (a.articleRaiting > b.articleRaiting) {
+                        return 1;
+                    }
+                    if (a.articleRaiting < b.articleRaiting) {
+                        return -1;
+                    }
+                    // a должно быть равным b
+                    return 0;
+                });
+            },
+            nextPage(){
+                this.scrollToElement('#start');
+                this.pageNumber++;
+            },
+            prevPage(){
+                this.scrollToElement('#start');
+                this.pageNumber--;
+            },
+            scrollToElement(elementId) {
+                var selectedPosX = 0;
+                var selectedPosY = 0;
+                var theElement =  document.getElementById(elementId);
+                while (theElement != null) {
+                    selectedPosX += theElement.offsetLeft;
+                    selectedPosY += theElement.offsetTop;
+                    theElement = theElement.offsetParent;
+                    window.scrollTo(selectedPosX,selectedPosY)
+                }
+
+            }
+        },
+        computed: {
+            //Количество страниц
+            totalPages(){
+                let l = this.arArticles.length,
+                    s = this.maxPostInPage;
+                return Math.floor(l/s);
+            },
+            //Массив для пагинации
+            paginatedData(){
+                const start = this.pageNumber * this.maxPostInPage,
+                    end = start + this.maxPostInPage;
+                return this.arArticles.slice(start, end);
+            },
+            //флаг оключении кнопки
+            disabledPrev() {
+                return this.pageNumber < 1
+            },
+            //флаг оключении кнопки
+            disabledNext() {
+                return (this.pageNumber > (this.totalPages-1))
             }
         }
     }
@@ -214,6 +351,39 @@
                 transform: scale(1.1);
                 transition: 1s;
             }
+        }
+        & .pag-btn {
+            display: flex ;
+            justify-content: space-between;
+        }
+        & .btn {
+            background-color: white;
+            width: 100px;
+            height: 50px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            color: rgb(56, 68, 82);
+            outline: none;
+            &:hover {
+                transform: translateY(-5px);
+                transition: 0.5s;
+                border: 1px solid #58a080;
+                color: #58a080;
+            }
+            &.btn_red{
+                border: 1px solid #A02F34;
+                color: rgb(56, 68, 82);
+                &:hover {
+                    background-color: #A02F34;
+                    color: white;
+                }
+            }
+        }
+        & .sort-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 20px 0;
         }
     }
 </style>
