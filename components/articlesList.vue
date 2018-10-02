@@ -385,6 +385,53 @@
             justify-content: space-between;
             padding: 20px 0;
         }
+
+        @media (min-width: 0px) and (max-width: 419px) {
+            .articles-list {
+                width: 100%;
+                & .item {
+                    flex-direction: column;
+                    margin: 30px 0;
+                    border-bottom: 1px solid grey;
+                    &__img{
+                        margin: auto;
+                    }
+                    &__description{
+                        margin: 20px 0;
+                        &_name{
+                            margin: auto;
+                        }
+                        &_txt {
+                            text-align: center;
+                        }
+                    }
+                    &__btn{
+                        margin: 20px auto;
+                    }
+                }
+            }
+        }
+
+        /*----------------------------------------------*/
+        @media (min-width: 420px) and (max-width: 767px) {
+
+        }
+
+        /*----------------------------------------------*/
+        @media (min-width: 768px) and (max-width: 991px) {
+
+        }
+
+        /*----------------------------------------------*/
+        @media (min-width: 992px) and (max-width: 1199px) {
+
+        }
+
+        /*----------------------------------------------*/
+        @media (min-width: 1199px) and (max-width: 1400px) {
+
+        }
+
     }
 </style>
 
