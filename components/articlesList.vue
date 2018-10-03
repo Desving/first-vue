@@ -12,6 +12,7 @@
                 </div>
                 <div class="item__description">
                     <h2 class="item__description_name">{{ article.articleName }}</h2>
+                    <raiting-article v-bind:rating="4"></raiting-article>
                     <p  class="item__description_txt">{{ article.articlePewText}}</p>
                 </div>
                 <div class="item__btn">
@@ -32,6 +33,7 @@
 
 <script>
     import img from '~/assets/142.jpg/';
+    import raitingArticle from '~/components/raiting.vue';
     var _ = require('lodash');
     export default {
         data: function () {
@@ -198,6 +200,9 @@
                     },
                 ],
             }
+        },
+        components: {
+            raitingArticle
         },
         methods: {
             //функция перемешивания
