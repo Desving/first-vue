@@ -12,7 +12,7 @@
                 </div>
                 <div class="item__description">
                     <h2 class="item__description_name">{{ article.articleName }}</h2>
-                    <raiting-article v-bind:rating="4"></raiting-article>
+                    <raiting-article v-bind:rating="4" v-bind:countRating="4"></raiting-article>
                     <p  class="item__description_txt">{{ article.articlePewText}}</p>
                 </div>
                 <div class="item__btn">

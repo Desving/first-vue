@@ -1,12 +1,9 @@
 <template>
-    <div>
+    <div class='rating'>
+        <p class='rating-count'>{{ countRating }}</p>
         <ul class="rate">
             <li class="star"></li>
-            <li class="star"></li>
-            <li class="star"></li>
-            <li class="star"></li>
         </ul>
-        <p>{{ rating }}</p>
     </div>
 </template>
 
@@ -14,15 +11,23 @@
     export default {
         props: {
             rating: Number,
+            countRating: Number,
         },
     }
 </script>
 
 <style>
+    .rating {
+        display: flex;
+        align-items: center;
+    }
     .rate {
         margin: 0;
         padding: 0;
         font-size: 0;
+        align-items: left;
+        padding-left: 5px;
+
     }
     .rate:hover .star {
         color: #58a080;
@@ -31,20 +36,17 @@
         margin: 0;
         padding: 0;
         display: inline-block;
-        font-size: 20px;
+        font-size: 22px;
         cursor: pointer;
-        color: #fff;
-        text-shadow:
-                0 1px #58a080,
-                0 -1px #58a080,
-                1px 0 #58a080,
-                -1px 0 #58a080;
+        color:  #58a080;
     }
     .rate .star:before {
         content: '\2605';
     }
-    .rate .star:hover ~ .star {
-        color: #fff;
+    .rating-count {
+        vertical-align: bottom;
+        font-family: "HelveticaCE";
+        color: rgb(56, 68, 82);
     }
 </style>
 
